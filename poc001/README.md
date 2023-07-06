@@ -16,3 +16,10 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
                                 sudo apt upgrade
         04. Realizar a instalação do nod exporter
                 4.1. Liberar a port 9300
+
+Aprendizado: 
+        01. Instalação do sistema operacional ubuntu 22.04 lts
+        02. Execuçao dos comandos Linux(Pacotes, SystemD)
+        03. Instalação do Prometheus(exporters).
+        04. Liberação da porta 9300
+Tutorial de Instalação ubuntu: https://www.youtube.com/watch?v=3XkHSi0qCkc&t=3s
