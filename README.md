@@ -1,2 +1,3 @@
 # treinamento-sre
-Treinamento site reliability engineer
+Treinamento Site Reliability Engineer
+Orientador: Vinicius Gomes Batista
