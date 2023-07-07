@@ -12,15 +12,70 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
         03. configurar uma maquina VM e realizar a instalação do ubuntu-22.04.2-live-server-amd64.iso >>> ok.
                 03.1. Atualizar os pacotes update/upgrade.                
                         Comandos:
-                                sudo apt update
-                                sudo apt upgrade
-        04. Realizar a instalação do nod exporter
-                4.1. link procedimento: https://www.cherryservers.com/blog/install-prometheus-ubuntu
+                                sudo apt update >>> ok.
+                                sudo apt upgrade >>> ok.
+        04. Realizar a instalação do node exporter
+        
+                4.1. lista de comando para instalação do prometheus/node exporter
+                        4.1.1. Baixe o Node Exporter
+                                wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
+                                
+                        4.1.2. Extraia o Node Exporter e mova o binário
+                                exxtrair: tar xvf node_exporter-1.6.0.linux-amd64.tar.gz
+                                alternar diretorio: cd node_exporter-1.6.0.linux-amd64
+                                copiar: sudo cp node_exporter /usr/local/bin
+                                remover: # Exit current directory
+                                        cd ..
+                                        # Remove the extracted directory
+                                        rm -rf ./node_exporter-1.3.1.linux-amd64
+                                        
+                        4.1.3. Criar usuário do exportador de nós
+                                sudo useradd --no-create-home --shell /bin/false node_exporter
+                                
+                                Defina o proprietário do binário node_exporterpara o usuário criado recentemente:
+                                
+                                sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
+                        4.1.4. Crie e inicie o serviço Node Exporter
+                        Crie o node_exporter.servicearquivo com o nano:
+                                sudo nano /etc/systemd/system/node_exporter.service
+                        E cole o seguinte conteúdo no arquivo:
+
+                                [Unit]
+                                Description=Node Exporter
+                                Wants=network-online.target
+                                After=network-online.target
+
+                                [Service]
+                                User=node_exporter
+                                Group=node_exporter
+                                Type=simple
+                                ExecStart=/usr/local/bin/node_exporter
+
+                                [Install]
+                                WantedBy=multi-user.target
+                                
+                        Recarregar o daemon com:
+
+                                sudo systemctl daemon-reload
+
+                        inicie o node_exporterserviço com o seguinte comando:
+
+                                sudo systemctl start node_exporter
+
+                        4.1.5. Teste o serviço Node Exporter
+
+                                url: http://192.168.100.252:9100/metrics
+
+                        Se a porta 9100 estiver inacessível
+                       
+                                sudo ufw allow 9100
+
+                        Iptables
+
+                                sudo iptables -I INPUT -p tcp -m tcp --dport 9100 -j ACCEPT
+                                
                 4.2. Liberar a port 9300
-
-        05. Painel Prometeus
-        http://192.168.100.250:9090/graph?g0.expr=&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h
-
 
 Aprendizado: 
         01. Instalação do sistema operacional ubuntu 22.04 lts
