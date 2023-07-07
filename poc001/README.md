@@ -6,8 +6,8 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
 
         Passos:
 
-        01. Realizar a instalação da virtualbox ou vmware;
-        02. Fazer o downloads da iso referente ao sistema operacional ubuntu 22.04 lts
+        01. Realizar a instalação da virtualbox ou vmware; >>> ok.
+        02. Fazer o downloads da iso referente ao sistema operacional ubuntu 22.04 lts >>> ok.
         url: https://ubuntu.com/download/server
         03. configurar uma maquina VM e realizar a instalação do ubuntu-22.04.2-live-server-amd64.iso
                 03.1. Atualizar os pacotes update/upgrade.
