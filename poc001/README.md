@@ -62,10 +62,12 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
                         inicie o node_exporterserviço com o seguinte comando:
 
                                 sudo systemctl start node_exporter
+                                systemctl restart node_exporter
+                                systemctl enable node_exporter
 
                         4.1.5. Teste o serviço Node Exporter
 
-                                url: http://192.168.100.252:9100/metrics
+                                url: http://192.168.100.253:9100/metrics
 
                         Se a porta 9100 estiver inacessível
                        
@@ -76,10 +78,17 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
                                 sudo iptables -I INPUT -p tcp -m tcp --dport 9100 -j ACCEPT
                                 
                 4.2. Liberar a port 9300
+                        4.2.1. Configurar o serviço para Node_Exporter (porta)
+                                sudo vim /etc/systemd/system/node_exporter.service
+                                ExecStart=/usr/local/bin/node_exporter --web.listen-address=:9300
+                                Salvar (wq!)
+                                sudo systemctl daemon-reload
+                                systemctl restart node_exporter
+                                curl http://92.168.100.253:9300/metrics
 
 Aprendizado: 
         01. Instalação do sistema operacional ubuntu 22.04 lts
-        02. Execuçao dos comandos Linux(Pacotes, SystemD)
+        02. Execuçao dos comandos Linux(Pacotes, SystemD)                
         03. Instalação do Prometheus(exporters).
         04. Liberação da porta 9300
 Tutorial de Instalação ubuntu: https://www.youtube.com/watch?v=3XkHSi0qCkc&t=3s
