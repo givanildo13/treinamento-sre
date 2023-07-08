@@ -67,7 +67,7 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
 
                         4.1.5. Teste o serviço Node Exporter
 
-                                url: http://192.168.100.253:9100/metrics
+                                url: http://192.168.100.253:9300/metrics
 
                         Se a porta 9100 estiver inacessível
                        
