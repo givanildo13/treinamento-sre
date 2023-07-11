@@ -84,7 +84,7 @@ poc001- Instalação de um servido Ubuntu Server (última)LST
                                 Salvar (wq!)
                                 sudo systemctl daemon-reload
                                 systemctl restart node_exporter
-                                curl http://92.168.100.253:9300/metrics
+                                curl http://192.168.100.253:9300/metrics
 
 Aprendizado: 
         01. Instalação do sistema operacional ubuntu 22.04 lts
