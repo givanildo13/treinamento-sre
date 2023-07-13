@@ -1,0 +1,58 @@
+Anotaçoes:
+
+01. O que é o ASDF?
+
+    É uma ferramenta para gerenciamento de versões, diferentemente do rbenv para Ruby ou nvm para o nod.js, 
+    que gerenciam linguagem especificas. Tambem nominada de ASD-VM, ela administra versões para diversas 
+    liguagens, por meio de plugins.
+
+Criar chave de acesso Ansible: ssh-keygen -q -t rsa -f /diretorio/key -N ''
+
+02. 
+
+
+
+ 135  sudo apt install -y containerd
+  136  container --version
+  137  ctr version
+  138  sudo vim /etc/containerd/config.toml
+  139  sudo containerd config default | sudo tee /etc/containerd/config.toml
+  140  sudo containerd config default | sudo 
+  141  sudo vim /etc/containerd/
+  142  sudo vim /etc/containerd/config.toml
+  143  sudo containerd config default
+  144  sudo containerd config default >> /etc/containerd/config.toml
+  145  sudo touch /etc/containerd/config.toml
+  146  sudo mkdir -p /etc/containerd/
+  147  sudo containerd config default | sudo tee /etc/containerd/config.toml
+  148  sudo vim /etc/containerd/config.toml
+  149  sudo systemctl start containerd
+  150  sudo systemctl status containerd
+  151  sudo systemctl enable containerd
+  152  sudo su
+  153  sudo /etc/hostaname
+  154  sudo vim /etc/hostaname
+  155  sudo vim /etc/host
+  156  sudo  hostnamectl set-hostname k8s-controlplane
+  157  whoami
+  158  sudo apt-get install -y apt-transport-https ca-certificates curl
+  159  curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+  160  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  161  sudo apt-get update
+  162  sudo swapoff -a
+  163  free -m
+  164  sudo vim /etc/fstab 
+  165  sudo apt-get install -y kubelet kubeadm kubectl
+  166  sudo apt-mark hold kubelet kubeadm kubectl
+  167  sudo systemctl start kubelet
+  168  sudo systemctl status kubelet
+  169  sudo journalctl -u kubelet
+  170  sudo systemctl restart containerd
+  171  sudo systemctl restart kubelet
+  172  sudo journalctl -u kubelet
+  173  sudo systemctl status kubelet
+  174  sudo journalctl -f kubelet
+  175  sudo journalctl -u -f kubelet
+  176  sudo journalctl -u kubelet
+  177  sudo journalctl -u kubelet | less
+  178  sudo vim /etc/hostname
