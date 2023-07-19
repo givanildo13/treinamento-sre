@@ -1,0 +1,91 @@
+Instalação e configuração do kubernetes
+
+01. Passo - Comando para realizar a instação do kubernetes.
+
+    ~$ sudo apt install -y containerd
+
+Observação: Informar o "-y", para a instalação não solicitar a confirmar.
+
+02. Passo- Comando verificar a versão.
+
+    ~$ ctr version
+
+03. Configuração do containerd
+    Baixar configuração padrão do conteinerd
+
+    sudo containerd config default
+
+    Criar o diretorio e o arquivo de configuração
+
+    Copiar o arquivo de configuração padrão para o arquivo confi.toml
+
+    sudo containerd config default | sudo tee /etc/containerd/config.toml
+
+    sudo mkdir -p /etc/containerd/
+    sudo touch /etc/containerd/config.toml
+
+04. Realizar alteração do hostname do servdor
+
+    sudo  hostnamectl set-hostname k8s-controlplane
+
+03. Instalando kubeadm, kubelet e kubectl
+
+    - kubeadm: O comando para inicializar o cluster;
+    - kubelet: O componete que é executado em todas as maquinas, tendo como função iniciar os pods e containers;
+    - kubectl: Utilitario de linha de comando para falar com o cluster.
+
+    3.1 - Atualize o aptíndice de pacotes e instale os pacotes necessários para usar o aptrepositório do Kubernetes;
+
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https ca-certificates curl
+
+    3.2 - Faça o download da chave de assinatura pública do Google Cloud;
+
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+
+    3.3 - Adicione o aptrepositório do Kubernetes;
+
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+    3.4 - Desligar swapp
+        
+        sudo swapoff -a
+        free -m
+        sudo vim /etc/fstab
+
+        Comentar a linha: #/swap.img      none    swap    sw      0       0
+    
+    3.5 - Atualize apto índice do pacote, instale kubelet, kubeadm e kubectl e fixe sua versão;
+
+    sudo apt-get update
+    sudo apt-get install -y kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl
+
+    3.6 - Iniciando e checando serviços kubelet kubeadm kubectl
+    
+    sudo systemctl start kubelet
+    sudo systemctl status kubelet
+    sudo systemctl restart kubelet
+
+    Verificar logs:
+
+    sudo journalctl -u kubelet
+
+
+
+    3.7 - Para fazer o kubectl funcionar para seu usuário não raiz, execute estes comandos, que também fazem parte da kubeadm initsaída:
+
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    3.8 - Configurando o systemddriver cgroup
+    Para usar o systemddriver cgroup com /etc/containerd/config.toml, runcdefina
+
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]  
+    ...
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    
+    SystemdCgroup = true
+
+
